@@ -1,67 +1,3 @@
-<?php
-namespace task_9;
-
-class DataBase {
-
-    static string $host;
-    static string $dbName;
-    static string $login;
-    static string $password;
-
-    static  string $table;
-
-    public function __construct(string $host, string $login, string $password, string $dbName, string $table) {
-        self::$host = $host;
-        self::$dbName = $dbName;
-        self::$login = $login;
-        self::$password = $password;
-        self::$table = $table;
-    }
-
-    static function createUserTable() : void {
-        $query = "CREATE TABLE IF NOT EXISTS `" . self::$table ."`  (
-                `id` INT(11) NOT NULL AUTO_INCREMENT,
-                `text` VARCHAR(3000) NULL DEFAULT NULL,
-                PRIMARY KEY (`id`)
-                )
-                ENGINE=InnoDB
-                CHECKSUM=1;
-        ";
-
-        $mysqli = new \mysqli(self::$host,self::$login,self::$password,self::$dbName);
-
-        if (mysqli_connect_errno()) {
-            printf("Подключение к серверу MySQL невозможно. Код ошибки: %s\n", mysqli_connect_error());
-            exit;
-        }
-
-        $mysqli->query($query);
-    }
-
-    public function addRequest(string $text) : void {
-
-        $mysqli = new \mysqli(self::$host,self::$login,self::$password,self::$dbName);
-
-        if (mysqli_connect_errno()) {
-            printf("Подключение к серверу MySQL невозможно. Код ошибки: %s\n", mysqli_connect_error());
-            exit;
-        }
-
-        $mysqli->query("INSERT INTO " . self::$table ." (text) value ('$text');");
-
-        $mysqli->close();
-    }
-}
-
-if(isset($_POST['request'])) {
-    $db = new \task_9\DataBase("localhost","mysql","mysql","db_users","table_request");
-    \task_9\DataBase::createUserTable();
-    $db->addRequest($_POST['request']);
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +35,7 @@ if(isset($_POST['request'])) {
                         <div class="panel-content">
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <form action="task_9.php" method="post">
+                                    <form action="action9.php" method="post">
                                         <label class="form-label" for="simpleinput">Text</label>
                                         <input type="text" id="simpleinput" name="request" class="form-control">
                                         <button class="btn btn-success mt-3">Submit</button>

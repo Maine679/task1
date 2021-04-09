@@ -1,67 +1,3 @@
-<?php
-namespace task_8;
-
-class DataBase {
-
-    static string $host;
-    static string $dbName;
-    static string $login;
-    static string $password;
-
-    static  string $table;
-
-    public function __construct(string $host, string $login, string $password, string $dbName, string $table) {
-        self::$host = $host;
-        self::$dbName = $dbName;
-        self::$login = $login;
-        self::$password = $password;
-        self::$table = $table;
-    }
-
-    static function createUserTable() : void {
-        $query = "CREATE TABLE IF NOT EXISTS `" . self::$table ."`  (
-                `user_id` INT(11) NOT NULL AUTO_INCREMENT,
-                `user_name` CHAR(50) NULL DEFAULT NULL,
-                `user_surname` CHAR(50) NULL DEFAULT NULL,
-                `user_username` CHAR(50) NULL DEFAULT NULL,
-                PRIMARY KEY (`user_id`)
-                )
-                ENGINE=InnoDB
-                CHECKSUM=1;
-        ";
-
-        $mysqli = new \mysqli(self::$host,self::$login,self::$password,self::$dbName);
-
-        if (mysqli_connect_errno()) {
-            printf("Подключение к серверу MySQL невозможно. Код ошибки: %s\n", mysqli_connect_error());
-            exit;
-        }
-
-        $mysqli->query($query);
-    }
-    public function getAllData() : array {
-        $arrUsers = array();
-        $mysqli = new \mysqli(self::$host,self::$login,self::$password,self::$dbName);
-
-        if (mysqli_connect_errno()) {
-            printf("Подключение к серверу MySQL невозможно. Код ошибки: %s\n", mysqli_connect_error());
-            exit;
-        }
-
-        if ($result = $mysqli->query("SELECT * FROM " . self::$table .";")) {
-            if ($result->num_rows > 0) {
-                $arrUsers = $result->fetch_all(MYSQLI_ASSOC);
-            }
-            $result->close();
-        }
-        $mysqli->close();
-
-        return $arrUsers;
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,29 +47,28 @@ class DataBase {
                                         </tr>
                                     <tbody>
 
-                                    <?php
 
-                                        $db = new \task_8\DataBase("localhost","mysql","mysql","db_users","table_users");
-                                        \task_8\DataBase::createUserTable();
-                                        $arrUsers = $db->getAllData();
-                                        function showRows($arrUsers) : void {
-                                            echo '<tr>
-                                                 <th scope="row">' . $arrUsers['user_id'] . '</th>
-                                                <td>' . $arrUsers['user_name'] . '</td>
-                                                <td>' . $arrUsers['user_surname'] . '</td>
-                                                <td>' . $arrUsers['user_username'] . '</td>
-                                                <td>
-                                                <a href="show.php?id=' . $arrUsers['user_id'] . '" class="btn btn-info">Редактировать</a>
-                                                <a href="edit.php?id=' . $arrUsers['user_id'] . '" class="btn btn-warning">Изменить</a>
-                                                <a href="delete.php?id=' . $arrUsers['user_id'] . '" class="btn btn-danger">Удалить</a>
-                                                </td>
-                                                </tr>';
-                                        }
+                                    <?
+                                    $db = new PDO('mysql:host=localhost;dbname=db_users', 'mysql','mysql');
+                                    $stmt = $db->query('SELECT * FROM table_users;');
 
-                                        foreach ($arrUsers as $user) {
-                                            \task_8\showRows($user);
-                                        }
+                                    $arrUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     ?>
+
+                                    <? foreach ($arrUsers as $item): ?>
+                                    <tr>
+                                        <th scope="row"><? echo $item['user_id']; ?></th>
+                                        <td><? echo $item['user_name']; ?></td>
+                                        <td><? echo $item['user_surname']; ?></td>
+                                        <td><? echo $item['user_username']; ?></td>
+                                        <td>
+                                            <a href="show.php?id=<? echo $item['user_id']; ?>" class="btn btn-info">Редактировать</a>
+                                            <a href="edit.php?id=<? echo $item['user_id']; ?>" class="btn btn-warning">Изменить</a>
+                                            <a href="delete.php?id=<? echo $item['user_id']; ?>" class="btn btn-danger">Удалить</a>
+                                        </td>
+                                    </tr>
+                                    <? endforeach; ?>
+
 
                                     </tbody>
                                 </table>

@@ -35,47 +35,37 @@
                             <ol class="breadcrumb page-breadcrumb">
 
                                 <?php
-                                    $arrList = array(
-                                        array(
+                                    $arrList = [
+                                        [
                                           'class'=>'breadcrumb-item',
                                           'is_active'=>false,
                                           'ahref'=>'#main',
                                           'name'=>'Главная',
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                           'class'=>'breadcrumb-item',
                                           'is_active'=>false,
                                           'ahref'=>'#php',
                                           'name'=>'PHP',
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                           'class'=>'breadcrumb-item active',
                                           'is_active'=>true,
                                           'ahref'=>'#function',
                                           'name'=>'Функции',
-                                        )
-                                    );
+                                        ]
+                                    ];
 
-                                    foreach ($arrList as $key => $value) {
+                                    foreach ($arrList as $item): ?>
 
-                                        echo '<li class="' . $arrList[$key]['class'] . '">';
+                                        <li class="<? echo $item['class']; ?>">
+                                            <? if(!$item['is_active']): ?><a href="<? echo $item['ahref']; ?>"> <? endif; ?>
+                                                <? echo $item['name']; ?>
+                                            <? if(!$item['is_active']): ?></a><? endif; ?>
+                                        </li>
 
-                                        if(!$arrList[$key]['is_active'])
-                                            echo '<a href="' . $arrList[$key]['ahref'] . '">';
+                                    <? endforeach; ?>
 
-                                        echo $arrList[$key]['name'];
-
-                                        if(!$arrList[$key]['is_active'])
-                                            echo '</a>';
-
-                                        echo '</li>';
-                                    }
-
-                                ?>
-
-<!--                                <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
-<!--                                <li class="breadcrumb-item"><a href="#">PHP</a></li>-->
-<!--                                <li class="breadcrumb-item active">Функции</li>-->
                             </ol>
                         </div>
                     </div>

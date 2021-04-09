@@ -33,98 +33,74 @@
                     <div class="panel-container show">
                         <div class="panel-content">
 
-                            <?php
-                                $arrData = array(
-                                    array(
+                            <?
+                                $arrData = [
+                                    [
                                         'name'=>'My Tasks',
                                         'name_class'=>'d-flex mt-2',
                                         'value'=>'130 / 500',
                                         'value_class'=>'d-inline-block ml-auto',
-                                        'progress_data'=> array(
-                                            'class' => 'progress progress-sm mb-3',
-                                            'param' => array(
-                                                'class'=>'progress-bar bg-fusion-400',
-                                                'role'=>'progressbar',
-                                                'style'=>'width: 65%;',
-                                                'aria-valuenow'=>'65',
-                                                'aria-valuemin'=>'0',
-                                                'aria-valuemax'=>'100'
-                                            )
-                                        )
-                                    ),
-                                    array(
+                                        'class' => 'progress progress-sm mb-3',
+                                        'bg_class'=>'bg-fusion-400',
+                                        'role'=>'progressbar',
+                                        'style'=>'width: 65%;',
+                                        'value_now'=>'65',
+                                        'value_min'=>'0',
+                                        'value_max'=>'100'
+                                    ],
+                                    [
                                         'name'=>'Transfered',
                                         'name_class'=>'d-flex',
                                         'value'=>'440 TB',
                                         'value_class'=>'d-inline-block ml-auto',
-                                        'progress_data'=> array(
-                                            'class' => 'progress progress-sm mb-3',
-                                            'param' => array(
-                                                'class'=>'progress-bar bg-success-500',
-                                                'role'=>'progressbar',
-                                                'style'=>'width: 34%;',
-                                                'aria-valuenow'=>'34',
-                                                'aria-valuemin'=>'0',
-                                                'aria-valuemax'=>'100'
-                                            )
-                                        )
-                                    ),
-                                    array(
+                                        'class' => 'progress progress-sm mb-3',
+                                        'bg_class'=>'bg-success-500',
+                                        'role'=>'progressbar',
+                                        'style'=>'width: 34%;',
+                                        'value_now'=>'34',
+                                        'value_min'=>'0',
+                                        'value_max'=>'100'
+                                    ],
+                                    [
                                         'name'=>'Bugs Squashed',
                                         'name_class'=>'d-flex',
                                         'value'=>'77%',
                                         'value_class'=>'d-inline-block ml-auto',
-                                        'progress_data'=> array(
-                                            'class' => 'progress progress-sm mb-3',
-                                            'param' => array(
-                                                'class'=>'progress-bar bg-info-400',
-                                                'role'=>'progressbar',
-                                                'style'=>'width: 77%;',
-                                                'aria-valuenow'=>'77',
-                                                'aria-valuemin'=>'0',
-                                                'aria-valuemax'=>'100'
-                                            )
-                                        )
-                                    ),
-                                    array(
+                                        'class' => 'progress progress-sm mb-3',
+                                        'bg_class'=>'bg-info-400',
+                                        'role'=>'progressbar',
+                                        'style'=>'width: 77%;',
+                                        'value_now'=>'77',
+                                        'value_min'=>'0',
+                                        'value_max'=>'100'
+                                    ],
+                                    [
                                         'name'=>'User Testing',
                                         'name_class'=>'d-flex',
                                         'value'=>'7 days',
                                         'value_class'=>'d-inline-block ml-auto',
-                                        'progress_data'=> array(
-                                            'class' => 'progress progress-sm mb-g',
-                                            'param' => array(
-                                                'class'=>'progress-bar bg-primary-300',
-                                                'role'=>'progressbar',
-                                                'style'=>'width: 84%;',
-                                                'aria-valuenow'=>'84',
-                                                'aria-valuemin'=>'0',
-                                                'aria-valuemax'=>'100'
-                                            )
-                                        )
-                                    ));
-
-                                function showData($arr) : void {
-                                    echo '<div class="' . $arr['name_class'] . '">';
-                                    echo $arr['name'];
-                                    echo '<span class="' . $arr['value_class'] . '">' . $arr['value'] . '</span>';
-                                    echo '</div>';
-                                    echo '<div class="' . $arr['progress_data']['class'] . '">';
-                                    echo '<div ';
-
-                                    foreach ($arr['progress_data']['param'] as $param => $data) {
-                                        echo $param . '="' . $data . '" ';
-                                    }
-
-                                    echo '></div>';
-                                    echo '</div>';
-                                }
-
-                                foreach ($arrData as $key) {
-                                    showData($key);
-                                }
-
+                                        'class' => 'progress progress-sm mb-g',
+                                        'bg_class'=>'bg-primary-300',
+                                        'role'=>'progressbar',
+                                        'style'=>'width: 84%;',
+                                        'value_now'=>'84',
+                                        'value_min'=>'0',
+                                        'value_max'=>'100'
+                                    ]
+                                ];
                             ?>
+
+                            <? foreach ($arrData as $item): ?>
+                                <div class="<? echo $item['name_class']; ?>">
+                                    <? echo $item['name']; ?>
+                                    <span class="<? echo $item['value_class']; ?>"><? echo $item['value']; ?></span>
+                                </div>
+                                <div class="<? echo $item['class']; ?>">
+                                    <div class="progress-bar <? echo $item['bg_class']; ?>" role="<? echo $item['role']; ?>" style="<? echo $item['style']; ?>" aria-valuenow=<? echo $item['value_now']; ?> aria-valuemin="<? echo $item['value_min']; ?>" aria-valuemax="<? echo $item['value_max']; ?>"></div>
+                                </div>
+                            <? endforeach; ?>
+
+
 
                         </div>
                     </div>

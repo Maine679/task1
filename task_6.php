@@ -36,77 +36,66 @@
                 <div class="panel-content">
                     <div class="d-flex flex-wrap demo demo-h-spacing mt-3 mb-3">
 
-                        <?php
-
-
-                        function showUser($userInfo) : void {
-                            echo '<div class="';
-                            if($userInfo['banned'])
-                                echo "banned ";
-                            echo 'rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">';
-                            echo '<img src="img/demo/authors/' . $userInfo['image_src'] . '" alt="'. $userInfo['surname'] .' ' . $userInfo['name'] . '" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">';
-                            echo '<div class="ml-2 mr-3">';
-                            echo '<h5 class="m-0">';
-                            echo $userInfo['surname'] .' ' . $userInfo['name'] . ' (' . $userInfo['info'] . ')';
-                            echo '<small class="m-0 fw-300">';
-                            echo $userInfo['position'];
-                            echo '</small>';
-                            echo '</h5>';
-                            echo '<a href="https://twitter.com/' . $userInfo['twitter'] . '" class="text-info fs-sm" target="_blank">' . $userInfo['twitter'] . '</a> -';
-                            echo '<a href="https://wrapbootstrap.com/user/' . $userInfo['login'] . '" class="text-info fs-sm" target="_blank" title="Contact' . $userInfo['surname'] . '"><i class="fal fa-envelope"></i></a>';
-                            echo '</div>';
-                            echo '</div>';
-                        }
-
-
-                        $arrUsers = array(
-                            array(
-                                'name'=>'A.',
-                                'surname'=>'Sunny',
-                                'login'=>'myorange',
-                                'info'=>'UI/UX Expert',
-                                'image_src'=>'sunny.png',
-                                'position'=>'Lead Author',
-                                'twitter'=>'@myplaneticket',
-                                'banned' => false
-                            ),
-                            array(
-                                'name'=>'K.',
-                                'surname'=>'Jos',
-                                'login'=>'Walapa',
-                                'info'=>'ASP.NET Developer',
-                                'image_src'=>'josh.png',
-                                'position'=>'Partner &amp; Contributor',
-                                'twitter'=>'@atlantez',
-                                'banned' => false
-                            ),
-                            array(
-                                'name'=>'L.',
-                                'surname'=>'Jovanni',
-                                'login'=>'lodev09',
-                                'info'=>'PHP Developer',
-                                'image_src'=>'jovanni.png',
-                                'position'=>'Partner &amp; Contributor',
-                                'twitter'=>'@lodev09',
-                                'banned' => true
-                            ),
-                            array(
-                                'name'=>'R.',
-                                'surname'=>'Roberto',
-                                'login'=>'sildur',
-                                'info'=>'Rails Developer',
-                                'image_src'=>'roberto.png',
-                                'position'=>'Partner &amp; Contributor',
-                                'twitter'=>'@sildur',
-                                'banned' => true
-                            )
-                        );
-
-                        foreach ($arrUsers as $dataUser) {
-                            showUser($dataUser);
-                        }
-
+                        <?
+                            $arrUsers = [
+                                [
+                                    'name'=>'A.',
+                                    'surname'=>'Sunny',
+                                    'login'=>'myorange',
+                                    'info'=>'UI/UX Expert',
+                                    'image_src'=>'sunny.png',
+                                    'position'=>'Lead Author',
+                                    'twitter'=>'@myplaneticket',
+                                    'status' => 'active'
+                                ],
+                                [
+                                    'name'=>'K.',
+                                    'surname'=>'Jos',
+                                    'login'=>'Walapa',
+                                    'info'=>'ASP.NET Developer',
+                                    'image_src'=>'josh.png',
+                                    'position'=>'Partner &amp; Contributor',
+                                    'twitter'=>'@atlantez',
+                                    'status' => 'active'
+                                ],
+                                [
+                                    'name'=>'L.',
+                                    'surname'=>'Jovanni',
+                                    'login'=>'lodev09',
+                                    'info'=>'PHP Developer',
+                                    'image_src'=>'jovanni.png',
+                                    'position'=>'Partner &amp; Contributor',
+                                    'twitter'=>'@lodev09',
+                                    'status' => 'banned'
+                                ],
+                                [
+                                    'name'=>'R.',
+                                    'surname'=>'Roberto',
+                                    'login'=>'sildur',
+                                    'info'=>'Rails Developer',
+                                    'image_src'=>'roberto.png',
+                                    'position'=>'Partner &amp; Contributor',
+                                    'twitter'=>'@sildur',
+                                    'status' => 'banned'
+                                ]
+                            ];
                         ?>
+
+                        <? foreach ($arrUsers as $item): ?>
+                            <div class="<?  if($item['status'] == 'banned'):?> banned <? endif;?>rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                <img src="img/demo/authors/<? echo $item['image_src']; ?>" alt="<? echo $item['surname'] . " " . $item['name']; ?>" class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                <div class="ml-2 mr-3">
+                                    <h5 class="m-0">
+                                        <? echo $item['surname'] . " " . $item['name'] . " (" . $item['info'] . ")"; ?>
+                                        <small class="m-0 fw-300">
+                                            <? echo $item['position']; ?>
+                                        </small>
+                                    </h5>
+                                    <a href="https://twitter.com/<? echo $item['twitter']; ?>" class="text-info fs-sm" target="_blank"><? echo $item['twitter']; ?></a> -
+                                    <a href="https://wrapbootstrap.com/user/<? echo $item['login']; ?>" class="text-info fs-sm" target="_blank" title="Contact <? echo $item['surname']; ?>"><i class="fal fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        <? endforeach; ?>
 
                     </div>
                 </div>

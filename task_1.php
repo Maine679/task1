@@ -44,20 +44,35 @@
                                         </div>
                                     </div>
 
-                                    <ul id="js-list-msg" class="list-group px-2 pb-2 js-list-filter">
-                                    <?php
-                                        $arrParFilter = array('reports file'=>'Reports',
-                                        'analytics graphs'=>'Analytics',
-                                        'export download'=>'Export',
-                                        'storage'=>'Storage'
-                                        );
 
-                                        foreach ($arrParFilter as $key => $value) {
-                                            echo '<li class="list-group-item">';
-                                            echo '<span data-filter-tags="' . $key . '">' . $value . '</span></li>';
-                                        }
+                                    <?php
+                                        $arrFilter = [
+                                            [
+                                               'tags'=>'reports file',
+                                               'value'=>'Reports'
+                                            ],
+                                            [
+                                               'tags'=>'analytics graphs',
+                                               'value'=>'Analytics'
+                                            ],
+                                            [
+                                               'tags'=>'export download',
+                                               'value'=>'Export'
+                                            ],
+                                            [
+                                               'tags'=>'storage',
+                                               'value'=>'Storage'
+                                            ]
+                                        ];
                                     ?>
 
+                                    <ul id="js-list-msg" class="list-group px-2 pb-2 js-list-filter">
+                                        <?php foreach ($arrFilter as $item): ?>
+
+                                            <li class="list-group-item">
+                                                <span data-filter-tags="<?php echo $item["tags"]; ?>"><?php echo $item["value"]; ?></span>
+                                            </li>
+                                        <?php endforeach;  ?>
                                     </ul>
 
 
