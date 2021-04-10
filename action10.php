@@ -12,6 +12,7 @@ if(isset($_POST['request'])) {
     if(empty($res)) {
         $stmt = $db->prepare('INSERT INTO table_request (text) values (?);');
         $stmt->execute([$_POST['request']]);
+        $_SESSION['success'] = "Запись была успешно добавлена.";
     } else {
         $_SESSION['warning'] = "Запись уже присутствует в базе.";
     }

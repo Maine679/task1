@@ -43,6 +43,15 @@
                                     ?>
                                 </div>
                             <? endif; ?>
+
+                            <? if(isset($_SESSION['success'])): ?>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <? echo $_SESSION['success'];
+                                    unset($_SESSION['success']);
+                                    ?>
+                                </div>
+                            <? endif; ?>
+
                             <form action="action10.php" method="post">
                                 <label class="form-label" for="simpleinput">Text</label>
                                 <input type="text" id="simpleinput" name="request" class="form-control">
